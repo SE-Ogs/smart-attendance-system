@@ -1,4 +1,4 @@
-package com.attendance.attendance.dashboard;
+package com.attendance.attendance.dashboard.controller;
 
 import java.util.HashMap;
 import java.util.List;
