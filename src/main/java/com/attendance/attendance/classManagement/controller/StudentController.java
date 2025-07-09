@@ -1,4 +1,4 @@
-package com.attendance.attendance.classManagement;
+package com.attendance.attendance.classManagement.controller;
 
 public class StudentController {
     
