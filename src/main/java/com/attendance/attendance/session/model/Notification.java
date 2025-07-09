@@ -29,7 +29,7 @@ public class Notification {
         return code;
     }
 
-    public void void setCode(String code) { // Corrected: removed 'void' here
+    public void setCode(String code) { // Corrected: removed 'void' here
         this.code = code;
     }
 
