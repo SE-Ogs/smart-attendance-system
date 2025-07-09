@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SessionRepository extends JpaRepository<Session, Long> {
     List<Session> findByTeacherIdAndIsActiveTrue(Long teacherId);
+
+    boolean existsByCodeandActiveTrue(String code);
 }
