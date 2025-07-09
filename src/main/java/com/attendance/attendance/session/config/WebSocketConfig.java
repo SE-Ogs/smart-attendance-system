@@ -1,4 +1,4 @@
-package com.attendance.attendance.session.config; // Choose a suitable package for configuration, e.g., com.attendance.attendance.config
+package com.attendance.attendance.session.config; 
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
