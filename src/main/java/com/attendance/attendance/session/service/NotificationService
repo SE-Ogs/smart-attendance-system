@@ -1,0 +1,22 @@
+@Service
+public class NotificationService {
+    // studentId -> list of pending notifications
+    private final ConcurrentMap<Long, List<Notification>> notifications = new ConcurrentHashMap<>();
+
+    /**
+     * Called by SessionService when a new code is generated.
+     */
+    public void sendCode(Long studentId, String code, Long sessionId) {
+        notifications
+            .computeIfAbsent(studentId, id -> new CopyOnWriteArrayList<>())
+            .add(new Notification(sessionId, code));
+    }
+
+    /**
+     * Return and clear all notifications for a student.
+     */
+    public List<Notification> fetchAndClear(Long studentId) {
+        List<Notification> list = notifications.remove(studentId);
+        return list != null ? list : Collections.emptyList();
+    }
+}
