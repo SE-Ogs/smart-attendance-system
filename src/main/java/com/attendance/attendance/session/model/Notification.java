@@ -1,9 +1,11 @@
+package com.attendance.attendance.session.model;
+
+import java.time.Instant;
+
 public class Notification {
     private Long sessionId;
     private String code;
     private Instant timestamp;
-
-    //constructors
 
     public Notification() {
     }
@@ -12,9 +14,9 @@ public class Notification {
         this.sessionId = sessionId;
         this.code = code;
         this.timestamp = timestamp;
+    }
 
-    //setters and getters
-
+    // Getters and Setters
     public Long getSessionId() {
         return sessionId;
     }
@@ -27,7 +29,7 @@ public class Notification {
         return code;
     }
 
-    public void setCode(String code) {
+    public void void setCode(String code) { // Corrected: removed 'void' here
         this.code = code;
     }
 
@@ -37,5 +39,14 @@ public class Notification {
 
     public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+               "sessionId=" + sessionId +
+               ", code='" + code + '\'' +
+               ", timestamp=" + timestamp +
+               '}';
     }
 }
