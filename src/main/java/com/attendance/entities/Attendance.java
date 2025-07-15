@@ -28,4 +28,27 @@ public class Attendance {
     private String ipAddress;
 
     // Getters & Setters
+    public Long getId(){
+        return id;
+    }
+
+    public Long getSessionId(){
+        return sessionId;
+    }
+
+    public Long getStudentId(){
+        return studentId;
+    }
+
+    public String getIpAddress(){
+        return ipAddress;
+    }
+
+    public LocalDateTime getCheckInTime(){
+        return checkInTime;
+    }
+
+    public void setIpAddress(String ipAddress){
+        this.ipAddress = ipAddress;
+    }
 }
