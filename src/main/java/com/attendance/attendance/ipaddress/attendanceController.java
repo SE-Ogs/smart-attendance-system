@@ -1,60 +1,63 @@
-package com.attendance.attendance.ipaddress;
+package com.attendance.attendance.ipAddress;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.util.Map;
+import org.springframework.web.server.ResponseStatusException;
+import com.damayo.damayo.Models.TodoModel;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
-@RestController
-@RequestMapping("/api/attendance")
-public class attendanceController {
-    
-    @Autowired
-    private attendanceService attendanceService;
-    
-    @PostMapping("/submit")
-    public ResponseEntity<Map<String, Object>> submitAttendance(
-            @RequestParam String code,
-            @RequestParam Long studentId,
-            @RequestParam String ipAddress,
-            @RequestParam Double latitude,
-            @RequestParam Double longitude) {
-        
-        try {
-            boolean success = attendanceService.submitAttendance(code, studentId, ipAddress, latitude, longitude);
-            
-            if (success) {
-                return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "message", "Attendance submitted successfully"
-                ));
-            } else {
-                return ResponseEntity.badRequest().body(Map.of(
-                    "success", false,
-                    "message", "Failed to submit attendance"
-                ));
-            }
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
-                "success", false,
-                "message", e.getMessage()
-            ));
-        }
+@Controller
+@RequestMapping("/api/reports/class/{id}")
+@CrossOrigin(origins = "*")
+public class AttendanceController {
+    List<Attendance> AttendanceReports = new ArrayList<>();
+
+    @GetMapping()
+    @ResponseBody
+    public Attendance getAttendance(@PathVariable int id) {
+        return AttendanceReports.stream()
+            .filter(attendance -> attendance.getId() == id)
+            .findFirst()
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance report not found"));
     }
-    
-    @GetMapping("/records")
-    public ResponseEntity<Map<String, Attendance>> getAllAttendanceRecords() {
-        return ResponseEntity.ok(attendanceService.getAllAttendanceRecords());
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Attendance addAttendance(@RequestParam String attendance) {
+        System.out.println("Received attendance report: " + attendance); // Debug log
+        Attendance attendance = new Attendance("Test", "Test", "Test");
+        attendance.setId(idCounter++);
+        AttendanceReports.add(attendance);
+        System.out.println("Added todo with id: " + attendance.getId()); // Debug log
+        return attendance;
     }
-    
-    @GetMapping("/sessions")
-    public ResponseEntity<Map<String, Session>> getAllActiveSessions() {
-        return ResponseEntity.ok(attendanceService.getAllActiveSessions());
+
+    @PutMapping
+    @ResponseBody
+    public Attendance updateAttendance(@RequestParam int id, @RequestParam String attendance) {
+        Attendance attendance = getAttendance(id);
+        attendance.setPresent(true);
+        attendance.setDate("Date");
+        return attendance;
     }
-    
-    @GetMapping("/location-info")
-    public ResponseEntity<Map<String, Object>> getLocationInfo() {
-        return ResponseEntity.ok(attendanceService.getLocationInfo());
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAttendance(@RequestParam int id) {
+        Attendance attendance = getAttendance(id);
+        AttendanceReports.remove(attendance);
     }
 }
