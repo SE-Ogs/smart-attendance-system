@@ -1,4 +1,4 @@
-package com.attendance.attendance.ipAddress;
+package com.attendance.attendance.ipaddress;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,3 +61,4 @@ public class AttendanceController {
         AttendanceReports.remove(attendance);
     }
 }
+
