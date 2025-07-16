@@ -8,7 +8,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.attendance.attendance.classManagement.repository.ClassRepository;
+import com.attendance.attendance.repository.AttendanceRepository;
+import com.attendance.attendance.repository.ClassRepository;
+import com.attendance.attendance.session.model.Session;
+import com.attendance.attendance.session.model.SessionRepository;
 import com.attendance.entities.Attendance;
 
 @Service
@@ -31,5 +34,7 @@ public class ApiReportService
             long count = allAttendace.stream().filter(a -> a.getSessionId().equals(session.getId())).count();
             return Map.of("sessionId", session.getId(), "code", session.getSessionCode(), "attendees", count);
         }).collect(Collectors.toList()));
+
+        return report;
     }
 }
