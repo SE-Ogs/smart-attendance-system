@@ -1,10 +1,13 @@
-package com.attendance.attendance.classManagement.Service;
+package com.attendance.attendance.class_management.service;
 
 import java.util.Set;
+
 import org.springframework.stereotype.Service;
-import com.attendance.attendance.classManagement.repository.ClassRepository;
-import com.attendance.attendance.classManagement.entity.ClassEntity;
-import com.attendance.attendance.classManagement.Response.StudentResponse;
+
+import com.attendance.attendance.class_management.Response.StudentResponse;
+import com.attendance.attendance.class_management.entity.ClassEntity;
+import com.attendance.attendance.class_management.repository.ClassRepository;
+
 
 @Service
 public class StudentService {
