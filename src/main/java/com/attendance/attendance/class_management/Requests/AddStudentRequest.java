@@ -1,4 +1,4 @@
-package com.attendance.attendance.classManagement.Requests;
+package com.attendance.attendance.class_management.Requests;
 
 public class AddStudentRequest {
     private String username;

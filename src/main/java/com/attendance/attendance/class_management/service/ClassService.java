@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.attendance.attendance.class_management.dto.ClassRequest;
-import com.attendance.entities.ClassEntity;
+import com.attendance.attendance.class_management.entity.ClassEntity;
+import com.attendance.attendance.class_management.repository.ClassRepository;
 import com.attendance.entities.User;
 
 public class ClassService {
@@ -41,5 +44,16 @@ public class ClassService {
             }
         }
         return result;
+    }
+
+    @Autowired
+    private ClassRepository classRepository;
+    public ClassEntity createClass(ClassRequest request, Long teacherId){
+        ClassEntity classEntity = new ClassEntity();
+        return classRepository.save(classEntity);
+    }
+
+    public List<ClassEntity> getClassesbyTeacher(Long teacherId){
+        return classRepository.findByTeacherId(teacherId);
     }
 }

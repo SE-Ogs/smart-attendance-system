@@ -1,4 +1,4 @@
-package com.attendance.attendance.classManagement.Response;
+package com.attendance.attendance.class_management.Response;
 
 public class StudentResponse {
     private String username;
