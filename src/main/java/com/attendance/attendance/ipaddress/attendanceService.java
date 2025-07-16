@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class attendanceService {
+public class AttendanceService {
     
     @Autowired
     private LocationService locationService;
@@ -18,7 +18,7 @@ public class attendanceService {
     private final Map<String, Attendance> attendanceRecords = new HashMap<>();
     
     // Initialize with some sample data
-    public attendanceService() {
+    public AttendanceService() {
         // Add some sample active sessions
         activeSessions.put("ABC123", new Session(1L, "ABC123", true, LocalDateTime.now().plusHours(1)));
         activeSessions.put("DEF456", new Session(2L, "DEF456", true, LocalDateTime.now().plusHours(2)));
