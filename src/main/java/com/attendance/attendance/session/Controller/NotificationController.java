@@ -46,8 +46,7 @@ public class NotificationController {
      * This method needs to be implemented based on your specific Spring Security setup
      * and how user details (including the student ID) are stored in the Principal.
      *
-     * IMPORTANT: This is a placeholder. You must replace the logic within to match your
-     * actual Spring Security implementation.
+     * IMPORTANT: This is a placeholder. 
      *
      * @param user The authenticated Principal.
      * @return The student's ID, or null if it cannot be extracted.
