@@ -34,6 +34,7 @@ public class User {
     private Role role;
 
     // Getters & Setters
+<<<<<<< HEAD
 
     public Long getId() {
         return id;
@@ -42,4 +43,6 @@ public class User {
     public Role getRole() {
         return role;
     }
+=======
+>>>>>>> 1e29b8828609fe996495eb47d86d97b38995fe15
 }
