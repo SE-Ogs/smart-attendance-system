@@ -1,4 +1,4 @@
-package com.attendance.attendance.classManagement.controller;
+package com.attendance.attendance.class_management.controller;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attendance.attendance.classManagement.dto.ClassRequest;
+import com.attendance.attendance.class_management.dto.ClassRequest;
+import com.attendance.attendance.class_management.service.ClassService;
 import com.attendance.entities.ClassEntity;
 import com.attendance.entities.User;
-import com.attendance.attendance.classManagement.service.ClassService;
 
 @RestController
 @RequestMapping("/api/classes")

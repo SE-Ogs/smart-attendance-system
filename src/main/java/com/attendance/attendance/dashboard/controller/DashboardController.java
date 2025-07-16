@@ -1,9 +1,9 @@
 package com.attendance.attendance.dashboard;
 
-import com.attendance.attendance.classManagement.ClassEntity;
-import com.attendance.attendance.classManagement.ClassService;
 import com.attendance.attendance.session.Session;
 import com.attendance.attendance.session.SessionService;
+import com.attendance.attendance.classmanagement.ClassEntity;
+import com.attendance.attendance.classmanagement.ClassService;
 import com.attendance.attendance.ipAddress.AttendanceService;
 import com.attendance.attendance.userManagement.User;
 
