@@ -4,20 +4,28 @@ package com.attendance.attendance.ipaddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.attendance.attendance.repository.AttendanceRepository;
+import com.attendance.entities.Attendance;
 
 
 
-@RestController
-@RequestMapping("/api/attendance/my-history")
+
+@Service
 public class StudentHistoryService{
 
-    private final Long studentId = 
+    private AttendanceRepository attendanceRepository;
+
     private final Long hardCodedStudentId = 202301028L;
     private final Long hardCodedSessionId = 500201L;
     private final Long hardCodedClassId = 200300L;
+
+    @Autowired
+    public StudentHistoryService(AttendanceRepository attendanceRepository){
+        this.attendanceRepository = attendanceRepository;
+    }
 
     //Check class id using session id
     public Long getClassIdBySessionId(Long sessionId){
@@ -29,22 +37,25 @@ public class StudentHistoryService{
     }
 
     //Check if student is enrolled in the class
-    public boolean isStudetnInClass(Long studentId, Long classId){
+    public boolean isStudentInClass(Long studentId, Long classId){
         return studentId.equals(hardCodedStudentId) && classId.equals(hardCodedClassId);
     }
 
-    //Return student history
-    public List<String> attendanceHistory(Long studentId, Long classId){
-        if(!isStudetnInClass(studentId, classId)){
-            throw new RuntimeException("Student is not enrolled in class");
+    public List<Attendance> getAttendanceRecords(Long studentId, Long sessionId){
+        return attendanceRepository.findByStudentIdAndSessionId(studentId, sessionId);
+    }
+
+    public List<String> attendanceHistory(Long studentId, Long sessionId, Long classId){
+        if(!isStudentInClass(studentId, classId)){
+            throw new RuntimeException("Student is not enrolled in this class");
         }
 
+        List<Attendance> records = getAttendanceRecords(studentId, sessionId);
 
-        List<String> history = new ArrayList();
-        history.add("Late");
-        history.add("Present");
-        history.add("Absent");
-
-        return history;
+        return records.stream()
+                .map(record -> "Checked in at: " + record.getCheckInTime() + ", IP: " + record.getIpAddress())
+                .toList();
     }
+ 
+    
 }
