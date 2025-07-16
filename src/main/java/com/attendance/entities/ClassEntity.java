@@ -35,7 +35,6 @@ public class ClassEntity {
     private Set<User> students = new HashSet<>();
 
     // Getters & Setters
-<<<<<<< HEAD
     public String getClassName() {
         return className;
     }
@@ -51,6 +50,4 @@ public class ClassEntity {
     public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
     }
-=======
->>>>>>> 1e29b8828609fe996495eb47d86d97b38995fe15
 }
