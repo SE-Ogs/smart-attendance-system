@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 
-@Service
+@RestController
+@RequestMapping("/api/attendance/my-history")
 public class StudentHistoryService{
 
+    private final Long studentId = 
     private final Long hardCodedStudentId = 202301028L;
     private final Long hardCodedSessionId = 500201L;
     private final Long hardCodedClassId = 200300L;

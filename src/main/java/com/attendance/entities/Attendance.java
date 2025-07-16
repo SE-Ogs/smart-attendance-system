@@ -48,6 +48,18 @@ public class Attendance {
         return checkInTime;
     }
 
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
+    }
+
     public void setIpAddress(String ipAddress){
         this.ipAddress = ipAddress;
     }
