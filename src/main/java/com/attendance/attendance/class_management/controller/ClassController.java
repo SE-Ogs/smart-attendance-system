@@ -1,4 +1,4 @@
-package com.attendance.attendance.classManagement.controller;
+package com.attendance.attendance.class_management.controller;
 
 import java.util.List;
 
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attendance.attendance.classManagement.dto.ClassRequest;
-import com.attendance.attendance.classManagement.entity.ClassEntity;
-import com.attendance.attendance.classManagement.service.ClassService;
+import com.attendance.attendance.class_management.dto.ClassRequest;
+import com.attendance.attendance.class_management.service.ClassService;
+import com.attendance.entities.ClassEntity;
+import com.attendance.entities.User;
 
 @RestController
 @RequestMapping("/api/classes")
@@ -27,17 +28,12 @@ public class ClassController {
     @PostMapping
     public ResponseEntity<?> createClass(@RequestBody ClassRequest request, Authentication auth) {
         try {
-            //check if user is teacher
-            if(!isTeacher(auth)){
+            User user = getUserFromAuth(auth);
+            if (user == null || user.getRole() != User.Role.TEACHER) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("Only teachers can create classes.");
             }
-
-            //get teacher id
-            Long teacherId = getTeacherId(auth);
-
-            //create and save class
-            ClassEntity savedClass = classService.createClass(request, teacherId);
+            ClassEntity savedClass = classService.createClass(request, user);
             return ResponseEntity.ok(savedClass);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -49,15 +45,12 @@ public class ClassController {
     @GetMapping
     public ResponseEntity<?> getClasses(Authentication auth){
         try{
-            Long userId = getUserId(auth);
-            List<ClassEntity> classes;
-
-            if(isTeacher(auth)){
-                classes = classService.getClassesbyTeacher(userId);
-            } else {
+            User user = getUserFromAuth(auth);
+            if (user == null || user.getRole() != User.Role.TEACHER) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body("Only teachers can view classes.");
             }
+            List<ClassEntity> classes = classService.getClassesbyTeacher(user);
             return ResponseEntity.ok(classes);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -65,16 +58,25 @@ public class ClassController {
         }
     }
 
-    private boolean isTeacher(Authentication auth){
-        return true;
-    }
-
-    private Long getUserId(Authentication auth){
-        return null;
-    }
-
-    private Long getTeacherId(Authentication auth){
-        return null;
+    private User getUserFromAuth(Authentication auth) {
+        if (auth == null) return null;
+        // For demo: assume auth is a custom Authentication with getName()
+        String username = null;
+        try {
+            username = (String) auth.getClass().getMethod("getName").invoke(auth);
+        } catch (Exception e) {
+            return null;
+        }
+        User user = new User();
+        // user.setUsername(username);
+        // if ("teacher".equalsIgnoreCase(username)) {
+        //     user.setId(1L);
+        //     user.setRole(User.Role.TEACHER);
+        // } else if ("student".equalsIgnoreCase(username)) {
+        //     user.setId(2L);
+        //     user.setRole(User.Role.STUDENT);
+        // }
+        return user;
     }
 }
 

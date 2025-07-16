@@ -1,4 +1,4 @@
-package com.attendance.attendance.classManagement.dto;
+package com.attendance.attendance.class_management.dto;
 
 public class ClassRequest {
     private String className;

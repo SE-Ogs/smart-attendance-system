@@ -27,6 +27,9 @@ public class Attendance {
 
     private String ipAddress;
 
+    private Double latitude;
+    private Double longitude;
+
     // Getters & Setters
     public Long getId(){
         return id;
@@ -46,6 +49,31 @@ public class Attendance {
 
     public LocalDateTime getCheckInTime(){
         return checkInTime;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+    public Double getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
     }
 
     public void setIpAddress(String ipAddress){
