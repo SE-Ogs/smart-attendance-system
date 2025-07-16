@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.attendance.attendance.classManagement.Requests.AddStudentRequest;
 import com.attendance.attendance.classManagement.Response.StudentResponse;
-import com.attendance.attendance.classManagement.Service.studentService;
+import com.attendance.attendance.classManagement.Service.StudentService;
 
 @RestController
 @RequestMapping("/api/classes/{classId}/students")
 public class StudentController {
 
-    private final studentService studentService;
+    private final StudentService studentService;
 
-    public StudentController(studentService studentService) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
@@ -35,6 +35,7 @@ public class StudentController {
         if (request.getUsername() == null || request.getUsername().isEmpty()) {
             return ResponseEntity.badRequest().body("Username cannot be empty");
             // soon must implement testing if student is registered in the database
+            //note:username is the email
         }
 
         try {
