@@ -1,11 +1,12 @@
 package com.attendance.attendance.class_management.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,18 +65,18 @@ public class ClassController {
         String username = null;
         try {
             username = (String) auth.getClass().getMethod("getName").invoke(auth);
-        } catch (Exception e) {
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             return null;
         }
         User user = new User();
-        // user.setUsername(username);
-        // if ("teacher".equalsIgnoreCase(username)) {
-        //     user.setId(1L);
-        //     user.setRole(User.Role.TEACHER);
-        // } else if ("student".equalsIgnoreCase(username)) {
-        //     user.setId(2L);
-        //     user.setRole(User.Role.STUDENT);
-        // }
+        user.setUsername(username);
+        if ("teacher".equalsIgnoreCase(username)) {
+            user.setId(1L);
+            user.setRole(User.Role.TEACHER);
+        } else if ("student".equalsIgnoreCase(username)) {
+            user.setId(2L);
+            user.setRole(User.Role.STUDENT);
+        }
         return user;
     }
 }

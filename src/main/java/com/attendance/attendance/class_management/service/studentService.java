@@ -5,8 +5,8 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.attendance.attendance.class_management.Response.StudentResponse;
-import com.attendance.attendance.class_management.entity.ClassEntity;
 import com.attendance.attendance.class_management.repository.ClassRepository;
+import com.attendance.entities.ClassEntity;
 
 
 @Service
