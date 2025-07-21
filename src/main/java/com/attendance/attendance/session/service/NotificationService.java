@@ -16,7 +16,7 @@ public class NotificationService {
     // studentId -> list of pending notifications (fallback/temporary storage)
     private final ConcurrentMap<Long, List<Notification>> notifications = new ConcurrentHashMap<>();
 
-    private final SimpMessagingTemplate messagingTemplate; // NEW: For sending WebSocket messages
+    private final SimpMessagingTemplate messagingTemplate;  // For sending WebSocket Messages
 
     public NotificationService(SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
