@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.attendance.attendance.class_management.dto.ClassRequest;
-import com.attendance.attendance.class_management.entity.ClassEntity;
+import com.attendance.entities.ClassEntity;
 import com.attendance.attendance.class_management.repository.ClassRepository;
 import com.attendance.entities.User;
 
