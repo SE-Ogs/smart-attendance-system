@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import com.attendance.entities.Attendance;
+import com.attendance.attendance.entities.Attendance;
 import com.attendance.attendance.repository.AttendanceRepository;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.attendance.entities.Session;
+import com.attendance.attendance.entities.Session;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import com.attendance.attendance.repository.SessionRepository;
@@ -37,7 +37,7 @@ public class AttendanceController {
     private SessionRepository sessionRepository;
 
     @GetMapping()
-    public List<Attendance> getAttendanceReports(@PathVariable("id") Long sessionId) {
+    public List<Attendance> getAttendanceReports(@PathVariable("id") String sessionId) {
         return attendanceRepository.findByStudentIdAndSessionId(null, sessionId); // Returns all attendance for the session
     }
 
@@ -69,7 +69,7 @@ public class AttendanceController {
     }
 
     @PutMapping("/{attendanceId}")
-    public Attendance updateAttendance(@PathVariable("attendanceId") Long attendanceId, @RequestBody Attendance updatedAttendance) {
+    public Attendance updateAttendance(@PathVariable("attendanceId") String attendanceId, @RequestBody Attendance updatedAttendance) {
         Attendance attendance = attendanceRepository.findById(attendanceId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance report not found"));
         // Update fields as needed
@@ -82,7 +82,7 @@ public class AttendanceController {
 
     @DeleteMapping("/{attendanceId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAttendance(@PathVariable("attendanceId") Long attendanceId) {
+    public void deleteAttendance(@PathVariable("attendanceId") String attendanceId) {
         if (!attendanceRepository.existsById(attendanceId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Attendance report not found");
         }
@@ -92,15 +92,15 @@ public class AttendanceController {
     // DTO for attendance submission
     public static class AttendanceSubmitRequest {
         private String code;
-        private Long studentId;
+        private String studentId;
         private String ipAddress;
         private Double latitude;
         private Double longitude;
         // Getters and setters
         public String getCode() { return code; }
         public void setCode(String code) { this.code = code; }
-        public Long getStudentId() { return studentId; }
-        public void setStudentId(Long studentId) { this.studentId = studentId; }
+        public String getStudentId() { return studentId; }
+        public void setStudentId(String studentId) { this.studentId = studentId; }
         public String getIpAddress() { return ipAddress; }
         public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
         public Double getLatitude() { return latitude; }

@@ -4,18 +4,19 @@ import java.time.LocalDateTime;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.attendance.entities.Attendance;
-import com.attendance.entities.Session;
+import com.attendance.attendance.entities.Attendance;
+import com.attendance.attendance.entities.Session;
 import com.attendance.attendance.repository.AttendanceRepository;
 import org.springframework.transaction.annotation.Transactional;
+
 
 //
 @Service
 public class AttendanceService {
     
     @Autowired
-    private LocationService locationService;
-    
+   private LocationService locationService;
+
     @Autowired
     private AttendanceRepository attendanceRepository;
     
@@ -28,7 +29,7 @@ public class AttendanceService {
     }
     
     @Transactional
-    public Attendance submitAttendance(Session session, Long studentId, String ipAddress, Double latitude, Double longitude) {
+    public Attendance submitAttendance(Session session, String studentId, String ipAddress, Double latitude, Double longitude) {
         // 1. Check if already submitted
         if (!attendanceRepository.findByStudentIdAndSessionId(studentId, session.getId()).isEmpty()) {
             throw new RuntimeException("Already submitted for this session");

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.attendance.attendance.repository.AttendanceRepository;
-import com.attendance.entities.Attendance;
+import com.attendance.attendance.entities.Attendance;
 
 
 
@@ -18,9 +18,9 @@ public class StudentHistoryService{
 
     private AttendanceRepository attendanceRepository;
 
-    private final Long hardCodedStudentId = 202301028L;
-    private final Long hardCodedSessionId = 500201L;
-    private final Long hardCodedClassId = 200300L;
+    private final String hardCodedStudentId = "202301028";
+    private final String hardCodedSessionId = "500201";
+    private final String hardCodedClassId = "200300";
 
     @Autowired
     public StudentHistoryService(AttendanceRepository attendanceRepository){
@@ -28,7 +28,7 @@ public class StudentHistoryService{
     }
 
     //Check class id using session id
-    public Long getClassIdBySessionId(Long sessionId){
+    public String getClassIdBySessionId(String sessionId){
         if(sessionId.equals(hardCodedSessionId)){
             return hardCodedClassId;
         }
@@ -37,15 +37,15 @@ public class StudentHistoryService{
     }
 
     //Check if student is enrolled in the class
-    public boolean isStudentInClass(Long studentId, Long classId){
+    public boolean isStudentInClass(String studentId, String classId){
         return studentId.equals(hardCodedStudentId) && classId.equals(hardCodedClassId);
     }
 
-    public List<Attendance> getAttendanceRecords(Long studentId, Long sessionId){
+    public List<Attendance> getAttendanceRecords(String studentId, String sessionId){
         return attendanceRepository.findByStudentIdAndSessionId(studentId, sessionId);
     }
 
-    public List<String> attendanceHistory(Long studentId, Long sessionId, Long classId){
+    public List<String> attendanceHistory(String studentId, String sessionId, String classId){
         if(!isStudentInClass(studentId, classId)){
             throw new RuntimeException("Student is not enrolled in this class");
         }
@@ -56,6 +56,4 @@ public class StudentHistoryService{
                 .map(record -> "Checked in at: " + record.getCheckInTime() + ", IP: " + record.getIpAddress())
                 .toList();
     }
- 
-    
 }

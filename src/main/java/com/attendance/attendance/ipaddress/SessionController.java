@@ -6,7 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.attendance.entities.Session;
+import com.attendance.attendance.entities.Session;
 import com.attendance.attendance.repository.SessionRepository;
 
 @RestController
@@ -17,7 +17,7 @@ public class SessionController {
     private SessionRepository sessionRepository;
 
     @GetMapping("/{id}")
-    public Session getSession(@PathVariable Long id) {
+    public Session getSession(@PathVariable String id) {
         return sessionRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Session not found with id: " + id));
     }
