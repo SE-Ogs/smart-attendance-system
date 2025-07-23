@@ -5,8 +5,8 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.attendance.attendance.class_management.Response.StudentResponse;
-import com.attendance.attendance.class_management.repository.ClassRepository;
-import com.attendance.entities.ClassEntity;
+import com.attendance.attendance.entities.ClassEntity;
+import com.attendance.attendance.repository.ClassRepository;
 
 
 @Service
@@ -20,11 +20,11 @@ public class StudentService {
     public StudentResponse addStudentToClass(Long classId, String studentUsername, String teacherUsername) {
         ClassEntity classEntity = classRepository.findById(classId)
             .orElseThrow(() -> new RuntimeException("Class not found"));
-        // TODO: Implement teacher and student logic
+        
         StudentResponse response = new StudentResponse();
         response.setUsername(studentUsername);
-        response.setFirstName("FirstName");
-        response.setLastName("LastName");
+        response.setFirstName("FirstName"); // TODO: Fetch real data
+        response.setLastName("LastName");  // TODO: Fetch real data
         response.setEmail(studentUsername + "@example.com");
         return response;
     }
@@ -32,7 +32,6 @@ public class StudentService {
     public Set<StudentResponse> getClassRoster(Long classId, String requesterUsername) {
         ClassEntity classEntity = classRepository.findById(classId)
             .orElseThrow(() -> new RuntimeException("Class not found"));
-        // TODO: Implement real roster logic
-        return Set.of();
+        return Set.of(); // TODO: Return real roster
     }
 }
