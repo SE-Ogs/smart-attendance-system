@@ -1,5 +1,6 @@
 package com.attendance.attendance.repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import com.attendance.attendance.entities.ClassEntity;
 
-public class ClassRepository {
-    
+public interface ClassRepository extends MongoRepository <ClassEntity, Long> {
 }
