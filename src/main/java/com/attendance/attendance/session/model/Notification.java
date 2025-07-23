@@ -5,9 +5,9 @@ import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "notifications")
+// @Document(collection = "notifications")
 public class Notification {
-    @Id
+    // @Id
     private String id; 
     private Long sessionId;
     private String code;

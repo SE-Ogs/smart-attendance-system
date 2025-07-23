@@ -12,7 +12,7 @@ import com.attendance.attendance.repository.SessionRepository;
 @RestController
 @RequestMapping("/api/attendance/session")
 @CrossOrigin(origins = "*")
-public class SessionController {
+public class AttendanceSessionController {
     @Autowired
     private SessionRepository sessionRepository;
 

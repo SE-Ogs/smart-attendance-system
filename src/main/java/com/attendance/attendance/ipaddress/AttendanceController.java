@@ -33,13 +33,13 @@ public class AttendanceController {
     private AttendanceRepository attendanceRepository;
     @Autowired
     private AttendanceService attendanceService;
-    @Autowired
-    private SessionRepository sessionRepository;
+    // @Autowired
+    // private SessionRepository sessionRepository;
 
-    @GetMapping()
-    public List<Attendance> getAttendanceReports(@PathVariable("id") String sessionId) {
-        return attendanceRepository.findByStudentIdAndSessionId(null, sessionId); // Returns all attendance for the session
-    }
+    // @GetMapping()
+    // public List<Attendance> getAttendanceReports(@PathVariable("id") String sessionId) {
+    //     return attendanceRepository.findByStudentIdAndSessionId(null, sessionId); // Returns all attendance for the session
+    // }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,26 +47,26 @@ public class AttendanceController {
         return attendanceRepository.save(attendance);
     }
 
-    @PostMapping("/api/attendance/submit")
-    public ResponseEntity<?> submitAttendance(@RequestBody AttendanceSubmitRequest request) {
-        // 1. Find session by code
-        Session session = sessionRepository.findBySessionCodeAndActiveTrue(request.getCode());
-        if (session == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired session code");
-        }
-        // 2. Check if already submitted
-        List<Attendance> existing = attendanceRepository.findByStudentIdAndSessionId(request.getStudentId(), session.getId());
-        if (!existing.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Attendance already submitted for this session");
-        }
-        // 3. Validate and submit attendance
-        try {
-            Attendance attendance = attendanceService.submitAttendance(session, request.getStudentId(), request.getIpAddress(), request.getLatitude(), request.getLongitude());
-            return ResponseEntity.status(HttpStatus.CREATED).body(attendance);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
+    // @PostMapping("/api/attendance/submit")
+    // public ResponseEntity<?> submitAttendance(@RequestBody AttendanceSubmitRequest request) {
+    //     // // 1. Find session by code
+    //     // Session session = sessionRepository.findBySessionCodeAndActiveTrue(request.getCode());
+    //     // if (session == null) {
+    //     //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired session code");
+    //     // }
+    //     // // 2. Check if already submitted
+    //     // List<Attendance> existing = attendanceRepository.findByStudentIdAndSessionId(request.getStudentId(), session.getId());
+    //     // if (!existing.isEmpty()) {
+    //     //     return ResponseEntity.status(HttpStatus.CONFLICT).body("Attendance already submitted for this session");
+    //     // }
+    //     // // 3. Validate and submit attendance
+    //     // try {
+    //     //     Attendance attendance = attendanceService.submitAttendance(session, request.getStudentId(), request.getIpAddress(), request.getLatitude(), request.getLongitude());
+    //     //     return ResponseEntity.status(HttpStatus.CREATED).body(attendance);
+    //     // } catch (Exception e) {
+    //     //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    //     // }
+    // }
 
     @PutMapping("/{attendanceId}")
     public Attendance updateAttendance(@PathVariable("attendanceId") String attendanceId, @RequestBody Attendance updatedAttendance) {

@@ -17,7 +17,7 @@ public class StudentService {
         this.classRepository = classRepository;
     }
 
-    public StudentResponse addStudentToClass(Long classId, String studentUsername, String teacherUsername) {
+    public StudentResponse addStudentToClass(String classId, String studentUsername, String teacherUsername) {
         ClassEntity classEntity = classRepository.findById(classId)
             .orElseThrow(() -> new RuntimeException("Class not found"));
         
@@ -29,7 +29,7 @@ public class StudentService {
         return response;
     }
 
-    public Set<StudentResponse> getClassRoster(Long classId, String requesterUsername) {
+    public Set<StudentResponse> getClassRoster(String classId, String requesterUsername) {
         ClassEntity classEntity = classRepository.findById(classId)
             .orElseThrow(() -> new RuntimeException("Class not found"));
         return Set.of(); // TODO: Return real roster

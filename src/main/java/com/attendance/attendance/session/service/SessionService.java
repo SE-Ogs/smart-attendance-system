@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.attendance.attendance.session.model.Session;
-import com.attendance.attendance.session.model.SessionRepository;
+import com.attendance.attendance.repository.SessionRepository;
 
 @Service
 public class SessionService {
@@ -17,23 +17,23 @@ public class SessionService {
     private SessionRepository sessionRepository;
 
     // Get all active sessions for a teacher
-    public List<Session> getActiveSessions(Long teacherId) {
-        return sessionRepository.findByTeacherIdAndIsActiveTrue(teacherId);
-    }
+    // public List<Session> getActiveSessions(String teacherId) {
+    //     return sessionRepository.findByTeacherIdAndIsActiveTrue(teacherId);
+    // }
 
     private static final SecureRandom secureRandom = new SecureRandom();
     private final int codeLength = 6;
 
     public Session createSession(Long classId){
         // 1. Generate
-        String code = generateUniqueCode("CSSE");
+        //String code = generateUniqueCode("CSSE");
 
         // 3. Create session
         Session session = new Session();
         session.setIsActive(true);
         
         // 4. Persist session first (so session ID exists)
-        session = sessionRepository.save(session);
+        //session = sessionRepository.save(session);
 
         // 5. Find all students in class
         // List<User> students = classService.getStudentsInClass(classId);
@@ -46,13 +46,13 @@ public class SessionService {
         return session;
     }
 
-    private String generateUniqueCode(String prefix){
-        String code;
-        do {
-            code = generateCode(prefix, codeLength);
-        } while (sessionRepository.existsByCodeandActiveTrue(code));
-        return code;
-    }
+    // private String generateUniqueCode(String prefix){
+    //     String code;
+    //     do {
+    //         code = generateCode(prefix, codeLength);
+    //     } while (sessionRepository.existsByCodeandActiveTrue(code));
+    //     return code;
+    // }
 
     private String generateCode (String prefix, int length) {
         int bound = (int) Math.pow(10, length);
@@ -62,14 +62,14 @@ public class SessionService {
     }
 
     // End a session
-    public boolean endSession(Long sessionId) {
-        Optional<Session> optionalSession = sessionRepository.findById(sessionId);
-        if (optionalSession.isPresent()) {
-            Session session = optionalSession.get();
-            session.setIsActive(false);
-            sessionRepository.save(session);
-            return true;
-        }
-        return false;
-    }
+    // public boolean endSession(Long sessionId) {
+    //     Optional<Session> optionalSession = sessionRepository.findById(sessionId);
+    //     if (optionalSession.isPresent()) {
+    //         Session session = optionalSession.get();
+    //         session.setIsActive(false);
+    //         sessionRepository.save(session);
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }

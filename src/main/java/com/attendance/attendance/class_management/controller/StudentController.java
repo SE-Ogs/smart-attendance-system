@@ -29,7 +29,7 @@ public class StudentController {
     @PostMapping
     @PreAuthorize("hasRole('TEACHER')")
     public ResponseEntity<?> addStudentToClass(
-        @PathVariable Long classId,
+        @PathVariable String classId,
         @RequestBody AddStudentRequest request,
         @AuthenticationPrincipal Object user) { // TODO: Replace Object with your actual User principal type
         if (request.getUsername() == null || request.getUsername().isEmpty()) {
@@ -49,7 +49,7 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<?> getClassRoster(
-        @PathVariable Long classId,
+        @PathVariable String classId,
         @AuthenticationPrincipal Object user) { // TODO: Replace Object with your actual User principal type
         try {
             // TODO: Update user.getUsername() to match your actual principal implementation

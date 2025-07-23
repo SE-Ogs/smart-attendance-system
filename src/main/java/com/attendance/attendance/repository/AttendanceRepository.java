@@ -12,6 +12,6 @@ import com.attendance.attendance.entities.Attendance;
 public interface AttendanceRepository extends MongoRepository<Attendance, String>{
     List<Attendance> findByStudentIdAndSessionId(String studentId, String sessionId);
 
-    List<Attendance> findBySessionClassId(String classId);
+    List<Attendance> findBySessionId(String classId);
 
 }

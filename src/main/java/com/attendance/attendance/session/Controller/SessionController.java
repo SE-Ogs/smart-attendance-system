@@ -17,21 +17,21 @@ public class SessionController {
     private SessionService sessionService;
 
     // Get active sessions for a teacher
-    @GetMapping("/active")
-    public ResponseEntity<List<Session>> getActiveSessions(@RequestParam Long teacherId) {
-        List<Session> sessions = sessionService.getActiveSessions(teacherId);
-        return ResponseEntity.ok(sessions);
-    }
+    // @GetMapping("/active")
+    // public ResponseEntity<List<Session>> getActiveSessions(@RequestParam Long teacherId) {
+    //     List<Session> sessions = sessionService.getActiveSessions(teacherId);
+    //     return ResponseEntity.ok(sessions);
+    // }
 
     // End a session by ID
-    @PostMapping("/{id}/end")
-    public ResponseEntity<Void> endSession(@PathVariable Long id) {
-        boolean ended = sessionService.endSession(id);
-        if (ended) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+    // @PostMapping("/{id}/end")
+    // public ResponseEntity<Void> endSession(@PathVariable Long id) {
+    //     boolean ended = sessionService.endSession(id);
+    //     if (ended) {
+    //         return ResponseEntity.ok().build();
+    //     } else {
+    //         return ResponseEntity.notFound().build();
+    //     }
+    // }
 }
 
