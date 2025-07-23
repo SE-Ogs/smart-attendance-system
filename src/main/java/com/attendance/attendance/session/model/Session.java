@@ -26,14 +26,12 @@ public class Session {
         this.isActive = active;
     }
 
-    public Object getId() {
-        // TODO : from api report service
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
-    }
+    public Long getId() {
+    return this.id;
+}
 
-    public Object getSessionCode() {
-        // TODO : from api report service
-        throw new UnsupportedOperationException("Unimplemented method 'getSessionCode'");
-    }
+    public String getSessionCode() {
+    return this.code;
+}
 
 }
