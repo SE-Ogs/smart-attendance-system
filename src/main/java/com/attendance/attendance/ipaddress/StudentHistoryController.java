@@ -24,9 +24,9 @@ public class StudentHistoryController {
 
     @GetMapping
     public List<String> getHistory(
-        @RequestParam Long studentId, @RequestParam Long sessionId
+        @RequestParam String studentId, @RequestParam String sessionId
     ){
-        Long classId = studentHistoryService.getClassIdBySessionId(sessionId);
+        String classId = studentHistoryService.getClassIdBySessionId(sessionId);
         if(classId == null){
             throw new RuntimeException("Invalid session Id");
         }
@@ -34,6 +34,4 @@ public class StudentHistoryController {
         return studentHistoryService.attendanceHistory(studentId, sessionId, classId);
 
     }
-    
-    
 }

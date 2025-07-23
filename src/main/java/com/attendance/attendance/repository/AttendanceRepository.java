@@ -2,16 +2,16 @@ package com.attendance.attendance.repository;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.attendance.entities.Attendance;
+import com.attendance.attendance.entities.Attendance;
 
 
 @Repository
-public interface AttendanceRepository extends JpaRepository<Attendance, Long>{
-    List<Attendance> findByStudentIdAndSessionId(Long studentId, Long sessionId);
+public interface AttendanceRepository extends MongoRepository<Attendance, String>{
+    List<Attendance> findByStudentIdAndSessionId(String studentId, String sessionId);
 
-    List<Attendance> findBySessionClassId(Long classId);
+    List<Attendance> findBySessionClassId(String classId);
 
 }

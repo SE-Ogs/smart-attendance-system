@@ -14,6 +14,8 @@ public class Attendance {
     private String studentId;
     private LocalDateTime checkInTime = LocalDateTime.now();
     private String ipAddress;
+    private double latitude;
+    private double longitude;
 
     // Getters
     public String getId() {
@@ -57,6 +59,14 @@ public class Attendance {
         this.ipAddress = ipAddress;
     }
 
+    public void setLatitude(double latitude){
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude){
+        this.longitude = longitude;
+    }
+
     // toString
     @Override
     public String toString() {
@@ -66,6 +76,8 @@ public class Attendance {
                 + ", studentId='" + studentId + '\''
                 + ", checkInTime=" + checkInTime
                 + ", ipAddress='" + ipAddress + '\''
+                + ", latitude='" + latitude + '\''
+                + ", longitude='" + longitude + '\''
                 + '}';
     }
 }
